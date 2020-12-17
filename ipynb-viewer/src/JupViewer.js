@@ -107,23 +107,38 @@ class JupViewer extends React.Component {
           /src="(.*?)"/,
           'src="' + this.state.fbase_path + old_source[1] + '"'
         );
-        // console.log(new_source)
       } else {
         var rgx2 = new RegExp(/\!\[(.*?)\]\((.*?)[\s|\)]/);
         var s2 = source[code].match(rgx2);
         if (!!s2 && !this.validURL(s2[2])) {
-          // console.log(s2[2])
-          // console.log(this.validURL(s2[2]))
-          // console.log(new_source.replace(s2[2], this.state.fbase_path + s2[2]))
           new_source = new_source.replace(s2[2], this.state.fbase_path + s2[2]);
         }
       }
-      //
+
+      // Replace all instances of `\begin{equation}` with `$$` before going to markdown parser for katex to recognize
+      var eqBeginRE = new RegExp(/\\begin{equation\**}/)
+      var eqEndRE = new RegExp(/\\end{equation\**}/)
+      if (source[code].match(eqBeginRE)) {
+        new_source = '\n$$\n'
+        // console.log(source[code].match(eqBeginRE), new_source)
+      } else if (source[code].match(eqEndRE)) {
+        new_source = '$$\n\n'
+      }
+
+      var eqBeginRE = new RegExp(/\\begin{align.*}/)
+      var eqEndRE = new RegExp(/\\end{align.*}/)
+      if (source[code].match(eqBeginRE)) {
+        new_source = '\n$$\n\n\\begin{aligned}\n'
+        // console.log(source[code].match(eqBeginRE), new_source)
+      } else if (source[code].match(eqEndRE)) {
+        new_source = '\\end{aligned}\n$$\n\n'
+      }
       cell_content += new_source;
     }
     return cell_content;
   }
 
+  // Custom Markdown parser with math (katex) support
   ReactMarkdownWithEquations(props) {
     const newProps = {
       ...props,
@@ -546,7 +561,7 @@ class JupViewer extends React.Component {
                               // borderWidth:'1px'
                             }}
                           >
-                            <ReactMarkdown
+                            <this.ReactMarkdownWithEquations
                               style={{
                                 float: "left",
                               }}
