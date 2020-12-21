@@ -3,7 +3,7 @@ import React from "react";
 import { render } from "react-dom";
 
 // UI
-import { Card, Spin, Tag, Col, Row, Typography, Switch } from "antd";
+import { Card, Spin, Tag, Col, Row, Typography } from "antd";
 import "./App.css";
 
 // Math
@@ -38,13 +38,13 @@ class JupViewer extends React.Component {
     gutterVisible: false,
     light: {
       // Editor Theme
-      editor_theme: "lightTheme",
-      text_editor_theme: "kuroir",
+      editor_theme: "lightTheme", // CSS class name that covers overall div and markdown
+      text_editor_theme: "kuroir", // Ace Editor theme
       // Text:
       // background_theme: "white", // Not used anywhere?
-      background_text_theme: "black",
-      background_input_theme: 'rgba(0, 0, 0, 0)', // Transparent
-      background_output_theme: 'rgba(0, 0, 0, 0)', // Transparent
+      title_text_theme: "black", // Title Color
+      background_input_theme: 'rgba(0, 0, 0, 0)', // input text: Ace editor background color
+      background_output_theme: 'rgba(0, 0, 0, 0)', // output text: Card and Row background color
 
     },
     dark: {
@@ -53,7 +53,7 @@ class JupViewer extends React.Component {
       text_editor_theme: "monokai",
       // Text:
       // background_theme: "black",
-      background_text_theme: "white",
+      title_text_theme: "white", // Title Color
       background_input_theme: "#272822",
       background_output_theme: "#2F3129",
     },
@@ -364,7 +364,7 @@ class JupViewer extends React.Component {
                     <Typography.Title
                       strong
                       style={{
-                        color: ( this.props.dark_theme ? this.props.dark.background_text_theme : this.props.light.background_text_theme ),
+                        color: ( this.props.dark_theme ? this.props.dark.title_text_theme : this.props.light.title_text_theme ),
                         // fontSize: '50px',
                         wordWrap: "break-word",
                         width: "100%",
@@ -375,7 +375,7 @@ class JupViewer extends React.Component {
                     <Typography.Title
                       level={4}
                       style={{
-                        color: (this.props.dark_theme ? this.props.dark.background_text_theme : this.props.light.background_text_theme),
+                        color: (this.props.dark_theme ? this.props.dark.title_text_theme : this.props.light.title_text_theme),
                         wordWrap: "break-word",
                         width: "100%",
                         display: !!this.props.subtitle ? "" : "none",
@@ -451,7 +451,6 @@ class JupViewer extends React.Component {
                       >
                         <Typography.Text
                           style={{
-                            color: (this.props.dark_theme ? this.props.dark.background_text_theme : this.props.light.background_text_theme),
                             float: "left",
                             padding: "5px",
                             color: "#56ACBC",
@@ -549,7 +548,6 @@ class JupViewer extends React.Component {
                         <Typography.Text
                           style={{
                             display: this.props.gutterVisible ? "" : "none",
-                            color: (this.props.dark_theme ? this.props.dark.background_text_theme : this.props.light.background_text_theme),
                             float: "left",
                             padding: "5px",
                             color: "#E5496A",
