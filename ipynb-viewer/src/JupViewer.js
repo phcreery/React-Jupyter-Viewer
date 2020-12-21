@@ -56,8 +56,6 @@ class JupViewer extends React.Component {
     notebook_json: null,
     placeholder_component: "Loading....",
 
-    // Gutter
-    // gutterVisible: false,
   };
 
   validURL(str) {
@@ -155,7 +153,7 @@ class JupViewer extends React.Component {
     return cell_content;
   }
 
-  // Custom Markdown parser with math (katex) support
+  // Math Equations: Custom Markdown parser with math (katex) support
   ReactMarkdownWithEquations(props) {
     const newProps = {
       ...props,
@@ -169,6 +167,7 @@ class JupViewer extends React.Component {
     return <ReactMarkdown {...newProps} />;
   }
 
+  // Data Cells
   praseOutputs(outputs) {
     if (outputs.length == 0) {
       return "";
@@ -337,46 +336,6 @@ class JupViewer extends React.Component {
     return return_template;
   }
 
-  // themeChanger(ev) {
-  //   if (ev) {
-  //     this.setState({
-  //       // Editor Theme
-  //       editor_theme: "darkTheme",
-  //       text_editor_theme: "monokai",
-  //       //themes:
-  //       background_theme: "black",
-  //       background_text_theme: "white",
-  //       // background_input_theme: '#2F3129',
-  //       background_input_theme: "#272822",
-  //       background_output_theme: "#2F3129",
-  //     });
-  //   } else {
-  //     this.setState({
-  //       // Editor Theme
-  //       editor_theme: "lightTheme",
-  //       text_editor_theme: "kuroir",
-  //       //themes:
-  //       background_theme: "white",
-  //       background_text_theme: "black",
-  //       // background_input_theme: '#2F3129',
-  //       background_input_theme: 'rgba(0, 0, 0, 0)', // Transparent
-  //       background_output_theme: 'rgba(0, 0, 0, 0)', // Transparent
-  //     });
-  //   }
-  //   console.log(`switch to ${ev}`);
-  // }
-
-  // gutterChanger(ev) {
-  //   if (ev) {
-  //     this.setState({
-  //       gutterVisible: true,
-  //     });
-  //   } else {
-  //     this.setState({
-  //       gutterVisible: false,
-  //     });
-  //   }
-  // }
 
   render() {
     console.log(this.props.file);
@@ -458,23 +417,6 @@ class JupViewer extends React.Component {
                             "display_name"
                           ]}
                     </Tag>
-                    {/* <Switch
-                      style={{
-                        margin: "0px 5px",
-                      }}
-                      defaultChecked
-                      checkedChildren="dark theme"
-                      unCheckedChildren="light theme"
-                      onChange={this.themeChanger.bind(this)}
-                    /> */}
-                    {/* <Switch
-                      style={{
-                        margin: "0px 5px",
-                      }}
-                      checkedChildren="gutter visilbe"
-                      unCheckedChildren="gutter hidden"
-                      onChange={this.gutterChanger.bind(this)}
-                    /> */}
                   </Col>
                   <Col span={1}></Col>
                 </Row>
@@ -640,7 +582,7 @@ class JupViewer extends React.Component {
 
 JupViewer.defaultProps = {
   dark_theme: false,
-  // gutterVisible: false,
+  gutterVisible: false,
 };
 
 export default JupViewer;
