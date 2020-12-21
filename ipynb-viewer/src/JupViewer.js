@@ -17,6 +17,7 @@ import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-kuroir";
 import "ace-builds/src-noconflict/theme-terminal";
+import 'ace-builds/src-noconflict/theme-iplastic'
 
 const ReactMarkdown = require("react-markdown");
 const { Meta } = Card;
@@ -26,21 +27,37 @@ class JupViewer extends React.Component {
     //file_path
     fpath: "",
     fbase_path: "",
-    // Editor Theme
-    ed_theme: "darkTheme",
-    text_ed_theme: "monokai",
-    //themes:
-    background_theme: "black",
-    background_text_theme: "white",
-    // background_input_theme: '#2F3129',
-    background_input_theme: "#272822",
-    background_output_theme: "#2F3129",
+
+    light: {
+      // Editor Theme
+      editor_theme: "lightTheme",
+      text_editor_theme: "kuroir",
+      // Text:
+      // background_theme: "white", // Not used anywhere?
+      background_text_theme: "black",
+      background_input_theme: 'rgba(0, 0, 0, 0)', // Transparent
+      background_output_theme: 'rgba(0, 0, 0, 0)', // Transparent
+
+    },
+    dark: {
+      // Editor Theme
+      editor_theme: "darkTheme",
+      text_editor_theme: "monokai",
+      // Text:
+      // background_theme: "black",
+      background_text_theme: "white",
+      background_input_theme: "#272822",
+      background_output_theme: "#2F3129",
+    },
+
+    dark_theme: false,
+
     loading: true,
     notebook_json: null,
     placeholder_component: "Loading....",
 
     // Gutter
-    gutterVisible: false,
+    // gutterVisible: false,
   };
 
   validURL(str) {
@@ -162,13 +179,13 @@ class JupViewer extends React.Component {
     var errors = ``;
     var img_data = `data:image/png;base64,`;
 
-    //booleans
+    // booleans
     var stdout_found = false;
     var text_found = false;
     var error_found = false;
     var img_found = false;
 
-    //maxlines for each output type
+    // maxlines for each output type
     var lines_stdout = 3;
     var lines_text_plain = 3;
     var lines_error_trace = 3;
@@ -219,7 +236,7 @@ class JupViewer extends React.Component {
             readOnly
             placeholder="--"
             mode="markdown"
-            theme={this.state.text_ed_theme}
+            theme={this.props.dark_theme ? this.state.dark.text_editor_theme : this.state.light.text_editor_theme}
             name="stdout"
             style={{
               maxWidth: "700px",
@@ -234,9 +251,9 @@ class JupViewer extends React.Component {
             highlightActiveLine={false}
             value={stdout}
             setOptions={{
-              enableBasicAutocompletion: false,
-              enableLiveAutocompletion: false,
-              enableSnippets: false,
+              // enableBasicAutocompletion: false,
+              // enableLiveAutocompletion: false,
+              // enableSnippets: false,
               showLineNumbers: false,
               tabSize: 2,
             }}
@@ -249,7 +266,7 @@ class JupViewer extends React.Component {
             readOnly
             placeholder="--"
             mode="markdown"
-            theme={this.state.text_ed_theme}
+            theme={this.props.dark_theme ? this.state.dark.text_editor_theme : this.state.light.text_editor_theme}
             name="text"
             style={{
               maxWidth: "700px",
@@ -264,9 +281,9 @@ class JupViewer extends React.Component {
             highlightActiveLine={false}
             value={text_plain}
             setOptions={{
-              enableBasicAutocompletion: false,
-              enableLiveAutocompletion: false,
-              enableSnippets: false,
+              // enableBasicAutocompletion: false,
+              // enableLiveAutocompletion: false,
+              // enableSnippets: false,
               showLineNumbers: false,
               tabSize: 2,
             }}
@@ -291,7 +308,7 @@ class JupViewer extends React.Component {
             readOnly
             placeholder="--"
             mode="markdown"
-            theme={this.state.text_ed_theme}
+            theme={this.props.dark_theme ? this.state.dark.text_editor_theme : this.state.light.text_editor_theme}
             name="error"
             style={{
               maxWidth: "700px",
@@ -306,9 +323,9 @@ class JupViewer extends React.Component {
             highlightActiveLine={false}
             value={errors}
             setOptions={{
-              enableBasicAutocompletion: false,
-              enableLiveAutocompletion: false,
-              enableSnippets: false,
+              // enableBasicAutocompletion: false,
+              // enableLiveAutocompletion: false,
+              // enableSnippets: false,
               showLineNumbers: false,
               tabSize: 2,
             }}
@@ -320,46 +337,46 @@ class JupViewer extends React.Component {
     return return_template;
   }
 
-  themeChanger(ev) {
-    if (ev) {
-      this.setState({
-        // Editor Theme
-        ed_theme: "darkTheme",
-        text_ed_theme: "monokai",
-        //themes:
-        background_theme: "black",
-        background_text_theme: "white",
-        // background_input_theme: '#2F3129',
-        background_input_theme: "#272822",
-        background_output_theme: "#2F3129",
-      });
-    } else {
-      this.setState({
-        // Editor Theme
-        ed_theme: "lightTheme",
-        text_ed_theme: "kuroir",
-        //themes:
-        background_theme: "white",
-        background_text_theme: "black",
-        // background_input_theme: '#2F3129',
-        background_input_theme: "#E8E9E8",
-        background_output_theme: "#F1F1F2",
-      });
-    }
-    console.log(`switch to ${ev}`);
-  }
+  // themeChanger(ev) {
+  //   if (ev) {
+  //     this.setState({
+  //       // Editor Theme
+  //       editor_theme: "darkTheme",
+  //       text_editor_theme: "monokai",
+  //       //themes:
+  //       background_theme: "black",
+  //       background_text_theme: "white",
+  //       // background_input_theme: '#2F3129',
+  //       background_input_theme: "#272822",
+  //       background_output_theme: "#2F3129",
+  //     });
+  //   } else {
+  //     this.setState({
+  //       // Editor Theme
+  //       editor_theme: "lightTheme",
+  //       text_editor_theme: "kuroir",
+  //       //themes:
+  //       background_theme: "white",
+  //       background_text_theme: "black",
+  //       // background_input_theme: '#2F3129',
+  //       background_input_theme: 'rgba(0, 0, 0, 0)', // Transparent
+  //       background_output_theme: 'rgba(0, 0, 0, 0)', // Transparent
+  //     });
+  //   }
+  //   console.log(`switch to ${ev}`);
+  // }
 
-  gutterChanger(ev) {
-    if (ev) {
-      this.setState({
-        gutterVisible: true,
-      });
-    } else {
-      this.setState({
-        gutterVisible: false,
-      });
-    }
-  }
+  // gutterChanger(ev) {
+  //   if (ev) {
+  //     this.setState({
+  //       gutterVisible: true,
+  //     });
+  //   } else {
+  //     this.setState({
+  //       gutterVisible: false,
+  //     });
+  //   }
+  // }
 
   render() {
     console.log(this.props.file);
@@ -369,11 +386,11 @@ class JupViewer extends React.Component {
         <Spin spinning={this.state.loading}>
           <center>
             {/* This is where the blog metadata and the cover will go */}
-            <div class={this.state.ed_theme}>
+            <div className={this.props.dark_theme ? this.state.dark.editor_theme : this.state.light.editor_theme}>
               <Card
                 bodyStyle={{
                   padding: "30px 10px",
-                  backgroundColor: this.state.background_output_theme,
+                  backgroundColor: ( this.props.dark_theme ? this.state.dark.background_output_theme : this.state.light.background_output_theme ),
                 }}
                 style={{
                   width: "100%",
@@ -387,7 +404,7 @@ class JupViewer extends React.Component {
                     <Typography.Title
                       strong
                       style={{
-                        color: this.state.background_text_theme,
+                        color: ( this.props.dark_theme ? this.state.dark.background_text_theme : this.state.light.background_text_theme ),
                         // fontSize: '50px',
                         wordWrap: "break-word",
                         width: "100%",
@@ -398,7 +415,7 @@ class JupViewer extends React.Component {
                     <Typography.Title
                       level={4}
                       style={{
-                        color: this.state.background_text_theme,
+                        color: (this.props.dark_theme ? this.state.dark.background_text_theme : this.state.light.background_text_theme),
                         wordWrap: "break-word",
                         width: "100%",
                         display: !!this.props.subtitle ? "" : "none",
@@ -441,7 +458,7 @@ class JupViewer extends React.Component {
                             "display_name"
                           ]}
                     </Tag>
-                    <Switch
+                    {/* <Switch
                       style={{
                         margin: "0px 5px",
                       }}
@@ -449,15 +466,15 @@ class JupViewer extends React.Component {
                       checkedChildren="dark theme"
                       unCheckedChildren="light theme"
                       onChange={this.themeChanger.bind(this)}
-                    />
-                    <Switch
+                    /> */}
+                    {/* <Switch
                       style={{
                         margin: "0px 5px",
                       }}
                       checkedChildren="gutter visilbe"
                       unCheckedChildren="gutter hidden"
                       onChange={this.gutterChanger.bind(this)}
-                    />
+                    /> */}
                   </Col>
                   <Col span={1}></Col>
                 </Row>
@@ -470,7 +487,7 @@ class JupViewer extends React.Component {
                 <Card
                   bodyStyle={{
                     padding: "0px 10px",
-                    backgroundColor: this.state.background_output_theme,
+                    backgroundColor: (this.props.dark_theme ? this.state.dark.background_output_theme : this.state.light.background_output_theme),
                   }}
                   style={{
                     width: "100%",
@@ -480,18 +497,18 @@ class JupViewer extends React.Component {
                 >
                   <Row
                     style={{
-                      backgroundColor: this.state.background_output_theme,
+                      backgroundColor: (this.props.dark_theme ? this.state.dark.background_output_theme : this.state.light.background_output_theme)
                     }}
                   >
-                    <Col span={this.state.gutterVisible ? 3 : 1}>
+                    <Col span={this.props.gutterVisible ? 3 : 1}>
                       <div
                         style={{
-                          display: this.state.gutterVisible ? "" : "none",
+                          display: this.props.gutterVisible ? "" : "none",
                         }}
                       >
                         <Typography.Text
                           style={{
-                            color: this.state.background_text_theme,
+                            color: (this.props.dark_theme ? this.state.dark.background_text_theme : this.state.light.background_text_theme),
                             float: "left",
                             padding: "5px",
                             color: "#56ACBC",
@@ -504,7 +521,7 @@ class JupViewer extends React.Component {
                     </Col>
 
                     <Col
-                      span={this.state.gutterVisible ? 20 : 22}
+                      span={this.props.gutterVisible ? 20 : 22}
                       style={{
                         textAlign: "left",
                       }}
@@ -515,14 +532,14 @@ class JupViewer extends React.Component {
                             padding: "5px 0px",
                             borderStyle: "solid",
                             borderWidth: "1px",
-                            backgroundColor: this.state.background_input_theme,
+                            backgroundColor: (this.props.dark_theme ? this.state.dark.background_input_theme : this.state.light.background_input_theme),
                           }}
                         >
                           <AceEditor
                             readOnly
                             placeholder="---"
                             mode="python"
-                            theme={this.state.text_ed_theme}
+                            theme={this.props.dark_theme ? this.state.dark.text_editor_theme : this.state.light.text_editor_theme}
                             name="code"
                             style={{
                               maxWidth: "700px",
@@ -542,18 +559,18 @@ class JupViewer extends React.Component {
                             highlightActiveLine={true}
                             value={this.praseSource(item["source"])}
                             setOptions={{
-                              enableBasicAutocompletion: false,
-                              enableLiveAutocompletion: false,
-                              enableSnippets: false,
+                              // enableBasicAutocompletion: false,
+                              // enableLiveAutocompletion: false,
+                              // enableSnippets: false,
                               showLineNumbers: true,
                               tabSize: 2,
                             }}
                           />
                         </div>
                       ) : (
-                        <div class="MDImg">
+                        <div className="MDImg">
                           <div
-                            class={this.state.ed_theme}
+                            className={this.props.dark_theme ? this.state.dark.editor_theme : this.state.light.editor_theme}
                             style={{
                               margin: "0px 0px",
                               padding: "10px",
@@ -582,14 +599,14 @@ class JupViewer extends React.Component {
                       style={{
                         display:
                           !!item["outputs"].length == 0 ? "none" : "visible",
-                        backgroundColor: this.state.background_output_theme,
+                        backgroundColor: (this.props.dark_theme ? this.state.dark.background_output_theme : this.state.light.background_output_theme)
                       }}
                     >
-                      <Col span={this.state.gutterVisible ? 3 : 1}>
+                      <Col span={this.props.gutterVisible ? 3 : 1}>
                         <Typography.Text
                           style={{
-                            display: this.state.gutterVisible ? "" : "none",
-                            color: this.state.background_text_theme,
+                            display: this.props.gutterVisible ? "" : "none",
+                            color: (this.props.dark_theme ? this.state.dark.background_text_theme : this.state.light.background_text_theme),
                             float: "left",
                             padding: "5px",
                             color: "#E5496A",
@@ -599,7 +616,7 @@ class JupViewer extends React.Component {
                         </Typography.Text>
                       </Col>
                       <Col
-                        span={this.state.gutterVisible ? 20 : 22}
+                        span={this.props.gutterVisible ? 20 : 22}
                         style={{
                           textAlign: "left",
                           color: "white",
@@ -620,5 +637,10 @@ class JupViewer extends React.Component {
     );
   }
 }
+
+JupViewer.defaultProps = {
+  dark_theme: false,
+  // gutterVisible: false,
+};
 
 export default JupViewer;
