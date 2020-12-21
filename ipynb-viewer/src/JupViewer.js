@@ -238,7 +238,7 @@ class JupViewer extends React.Component {
             theme={this.props.dark_theme ? this.state.dark.text_editor_theme : this.state.light.text_editor_theme}
             name="stdout"
             style={{
-              maxWidth: "700px",
+              // maxWidth: "700px",
               padding: "10px",
               margin: "10px 0px",
             }}
@@ -268,7 +268,7 @@ class JupViewer extends React.Component {
             theme={this.props.dark_theme ? this.state.dark.text_editor_theme : this.state.light.text_editor_theme}
             name="text"
             style={{
-              maxWidth: "700px",
+              // maxWidth: "700px",
               padding: "10px",
               margin: "10px 0px",
             }}
@@ -310,7 +310,7 @@ class JupViewer extends React.Component {
             theme={this.props.dark_theme ? this.state.dark.text_editor_theme : this.state.light.text_editor_theme}
             name="error"
             style={{
-              maxWidth: "700px",
+              // maxWidth: "700px",
               padding: "10px",
               margin: "10px 0px",
             }}
@@ -353,7 +353,7 @@ class JupViewer extends React.Component {
                 }}
                 style={{
                   width: "100%",
-                  maxWidth: "800px",
+                  // maxWidth: "800px",
                   border: "none",
                 }}
               >
@@ -433,7 +433,7 @@ class JupViewer extends React.Component {
                   }}
                   style={{
                     width: "100%",
-                    maxWidth: "800px",
+                    // maxWidth: "800px",
                     border: "none",
                   }}
                 >
@@ -484,7 +484,7 @@ class JupViewer extends React.Component {
                             theme={this.props.dark_theme ? this.state.dark.text_editor_theme : this.state.light.text_editor_theme}
                             name="code"
                             style={{
-                              maxWidth: "700px",
+                              // maxWidth: "700px",
                               padding: "10px",
                               margin: "10px 0px",
                             }}
