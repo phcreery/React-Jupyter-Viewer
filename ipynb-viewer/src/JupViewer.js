@@ -24,9 +24,9 @@ const { Meta } = Card;
 
 class JupViewer extends React.Component {
   state = {
-    //file_path
-    fpath: "",
-    fbase_path: "",
+    // File_Path
+    file_path: "",
+    file_base_path: "",
 
     light: {
       // Editor Theme
@@ -76,8 +76,8 @@ class JupViewer extends React.Component {
       var fbase = this.props.file.split("/");
       fbase.pop();
       this.setState({
-        fpath: this.props.file,
-        fbase_path: fbase.join("/") + "/",
+        file_path: this.props.file,
+        file_base_path: fbase.join("/") + "/",
       });
       await fetch(this.props.file)
         .then((r) => r.text())
@@ -120,13 +120,13 @@ class JupViewer extends React.Component {
       if (!!old_source && !this.validURL(old_source[1])) {
         new_source = source[code].replace(
           /src="(.*?)"/,
-          'src="' + this.state.fbase_path + old_source[1] + '"'
+          'src="' + this.state.file_base_path + old_source[1] + '"'
         );
       } else {
         var rgx2 = new RegExp(/\!\[(.*?)\]\((.*?)[\s|\)]/);
         var s2 = source[code].match(rgx2);
         if (!!s2 && !this.validURL(s2[2])) {
-          new_source = new_source.replace(s2[2], this.state.fbase_path + s2[2]);
+          new_source = new_source.replace(s2[2], this.state.file_base_path + s2[2]);
         }
       }
 
