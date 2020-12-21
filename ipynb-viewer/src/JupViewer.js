@@ -27,7 +27,15 @@ class JupViewer extends React.Component {
     // File_Path
     file_path: "",
     file_base_path: "",
+    loading: true,
+    notebook_json: null,
+    placeholder_component: "Loading....",
 
+  };
+
+  static defaultProps = {
+    dark_theme: false,
+    gutterVisible: false,
     light: {
       // Editor Theme
       editor_theme: "lightTheme",
@@ -49,13 +57,6 @@ class JupViewer extends React.Component {
       background_input_theme: "#272822",
       background_output_theme: "#2F3129",
     },
-
-    dark_theme: false,
-
-    loading: true,
-    notebook_json: null,
-    placeholder_component: "Loading....",
-
   };
 
   validURL(str) {
@@ -235,7 +236,7 @@ class JupViewer extends React.Component {
             readOnly
             placeholder="--"
             mode="markdown"
-            theme={this.props.dark_theme ? this.state.dark.text_editor_theme : this.state.light.text_editor_theme}
+            theme={this.props.dark_theme ? this.props.dark.text_editor_theme : this.props.light.text_editor_theme}
             name="stdout"
             style={{
               // maxWidth: "700px",
@@ -265,7 +266,7 @@ class JupViewer extends React.Component {
             readOnly
             placeholder="--"
             mode="markdown"
-            theme={this.props.dark_theme ? this.state.dark.text_editor_theme : this.state.light.text_editor_theme}
+            theme={this.props.dark_theme ? this.props.dark.text_editor_theme : this.props.light.text_editor_theme}
             name="text"
             style={{
               // maxWidth: "700px",
@@ -307,7 +308,7 @@ class JupViewer extends React.Component {
             readOnly
             placeholder="--"
             mode="markdown"
-            theme={this.props.dark_theme ? this.state.dark.text_editor_theme : this.state.light.text_editor_theme}
+            theme={this.props.dark_theme ? this.props.dark.text_editor_theme : this.props.light.text_editor_theme}
             name="error"
             style={{
               // maxWidth: "700px",
@@ -345,11 +346,11 @@ class JupViewer extends React.Component {
         <Spin spinning={this.state.loading}>
           <center>
             {/* This is where the blog metadata and the cover will go */}
-            <div className={this.props.dark_theme ? this.state.dark.editor_theme : this.state.light.editor_theme}>
+            <div className={this.props.dark_theme ? this.props.dark.editor_theme : this.props.light.editor_theme}>
               <Card
                 bodyStyle={{
                   padding: "30px 10px",
-                  backgroundColor: ( this.props.dark_theme ? this.state.dark.background_output_theme : this.state.light.background_output_theme ),
+                  backgroundColor: ( this.props.dark_theme ? this.props.dark.background_output_theme : this.props.light.background_output_theme ),
                 }}
                 style={{
                   width: "100%",
@@ -363,7 +364,7 @@ class JupViewer extends React.Component {
                     <Typography.Title
                       strong
                       style={{
-                        color: ( this.props.dark_theme ? this.state.dark.background_text_theme : this.state.light.background_text_theme ),
+                        color: ( this.props.dark_theme ? this.props.dark.background_text_theme : this.props.light.background_text_theme ),
                         // fontSize: '50px',
                         wordWrap: "break-word",
                         width: "100%",
@@ -374,7 +375,7 @@ class JupViewer extends React.Component {
                     <Typography.Title
                       level={4}
                       style={{
-                        color: (this.props.dark_theme ? this.state.dark.background_text_theme : this.state.light.background_text_theme),
+                        color: (this.props.dark_theme ? this.props.dark.background_text_theme : this.props.light.background_text_theme),
                         wordWrap: "break-word",
                         width: "100%",
                         display: !!this.props.subtitle ? "" : "none",
@@ -429,7 +430,7 @@ class JupViewer extends React.Component {
                 <Card
                   bodyStyle={{
                     padding: "0px 10px",
-                    backgroundColor: (this.props.dark_theme ? this.state.dark.background_output_theme : this.state.light.background_output_theme),
+                    backgroundColor: (this.props.dark_theme ? this.props.dark.background_output_theme : this.props.light.background_output_theme),
                   }}
                   style={{
                     width: "100%",
@@ -439,7 +440,7 @@ class JupViewer extends React.Component {
                 >
                   <Row
                     style={{
-                      backgroundColor: (this.props.dark_theme ? this.state.dark.background_output_theme : this.state.light.background_output_theme)
+                      backgroundColor: (this.props.dark_theme ? this.props.dark.background_output_theme : this.props.light.background_output_theme)
                     }}
                   >
                     <Col span={this.props.gutterVisible ? 3 : 1}>
@@ -450,7 +451,7 @@ class JupViewer extends React.Component {
                       >
                         <Typography.Text
                           style={{
-                            color: (this.props.dark_theme ? this.state.dark.background_text_theme : this.state.light.background_text_theme),
+                            color: (this.props.dark_theme ? this.props.dark.background_text_theme : this.props.light.background_text_theme),
                             float: "left",
                             padding: "5px",
                             color: "#56ACBC",
@@ -474,14 +475,14 @@ class JupViewer extends React.Component {
                             padding: "5px 0px",
                             borderStyle: "solid",
                             borderWidth: "1px",
-                            backgroundColor: (this.props.dark_theme ? this.state.dark.background_input_theme : this.state.light.background_input_theme),
+                            backgroundColor: (this.props.dark_theme ? this.props.dark.background_input_theme : this.props.light.background_input_theme),
                           }}
                         >
                           <AceEditor
                             readOnly
                             placeholder="---"
                             mode="python"
-                            theme={this.props.dark_theme ? this.state.dark.text_editor_theme : this.state.light.text_editor_theme}
+                            theme={this.props.dark_theme ? this.props.dark.text_editor_theme : this.props.light.text_editor_theme}
                             name="code"
                             style={{
                               // maxWidth: "700px",
@@ -512,7 +513,7 @@ class JupViewer extends React.Component {
                       ) : (
                         <div className="MDImg">
                           <div
-                            className={this.props.dark_theme ? this.state.dark.editor_theme : this.state.light.editor_theme}
+                            className={this.props.dark_theme ? this.props.dark.editor_theme : this.props.light.editor_theme}
                             style={{
                               margin: "0px 0px",
                               padding: "10px",
@@ -541,14 +542,14 @@ class JupViewer extends React.Component {
                       style={{
                         display:
                           !!item["outputs"].length == 0 ? "none" : "visible",
-                        backgroundColor: (this.props.dark_theme ? this.state.dark.background_output_theme : this.state.light.background_output_theme)
+                        backgroundColor: (this.props.dark_theme ? this.props.dark.background_output_theme : this.props.light.background_output_theme)
                       }}
                     >
                       <Col span={this.props.gutterVisible ? 3 : 1}>
                         <Typography.Text
                           style={{
                             display: this.props.gutterVisible ? "" : "none",
-                            color: (this.props.dark_theme ? this.state.dark.background_text_theme : this.state.light.background_text_theme),
+                            color: (this.props.dark_theme ? this.props.dark.background_text_theme : this.props.light.background_text_theme),
                             float: "left",
                             padding: "5px",
                             color: "#E5496A",
@@ -580,9 +581,9 @@ class JupViewer extends React.Component {
   }
 }
 
-JupViewer.defaultProps = {
-  dark_theme: false,
-  gutterVisible: false,
-};
+// JupViewer.defaultProps = {
+//   dark_theme: false,
+//   gutterVisible: false,
+// };
 
 export default JupViewer;

@@ -3,6 +3,7 @@ import logo from './logo.svg';
 // import './App.css';
 import JupViewer from './JupViewer'
 import { Card, Spin, Tag, Col, Row, Typography, Switch, Layout } from "antd";
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 const { Content } = Layout
 
 const ipynb = require('./Transformation2D.ipynb')
@@ -18,14 +19,18 @@ class App extends React.Component {
         <Layout>
             <Row justify="center">
               <Col span={18}>
-                <Card bordered hoverable style={{ marginTop: 10, marginBottom: 10, cursor: 'auto', borderColor: '#D9D9D9' }} >
-                  Dark Theme: <Switch
+                <Card bordered hoverable style={{ marginTop: 10, marginBottom: 10, cursor: 'auto', borderColor: '#D9D9D9', backgroundColor: (this.state.dark_theme ? "#2F3129" : "") }} >
+                  <Switch
                     defaultChecked = {this.state.dark_theme}
-                    onChange={ (val) => this.setState({ dark_theme: !!val  }) }
+                onChange={(val) => this.setState({ dark_theme: !!val })}
+                checkedChildren="Dark"
+                unCheckedChildren="Light"
                   />
-                  <br/>Gutter <Switch
+                  <br/><Switch
                     defaultChecked = {this.state.gutter}
-                    onChange={ (val) => this.setState({ gutter: !!val  }) }
+                onChange={(val) => this.setState({ gutter: !!val })}
+                checkedChildren={<MenuFoldOutlined />}
+                unCheckedChildren={<MenuUnfoldOutlined />}
                   />
                   <JupViewer
                     title="Jupyter as a Blog!"
