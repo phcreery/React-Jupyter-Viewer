@@ -1,10 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 // import './App.css';
 import JupViewer from './JupViewer'
-import { Card, Spin, Tag, Col, Row, Typography, Switch, Layout } from "antd";
+import { Card, Col, Row, Switch, Layout } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
-const { Content } = Layout
 
 const ipynb = require('./Transformation2D.ipynb')
 

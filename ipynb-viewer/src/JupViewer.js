@@ -1,6 +1,5 @@
 // React
 import React from "react";
-import { render } from "react-dom";
 
 // UI
 import { Card, Spin, Tag, Col, Row, Typography } from "antd";
@@ -20,7 +19,6 @@ import "ace-builds/src-noconflict/theme-terminal";
 import 'ace-builds/src-noconflict/theme-iplastic'
 
 const ReactMarkdown = require("react-markdown");
-const { Meta } = Card;
 
 class JupViewer extends React.Component {
   state = {
@@ -132,21 +130,21 @@ class JupViewer extends React.Component {
       }
 
       // Replace all instances of `\begin{equation}` with `$$` before going to markdown parser for katex to recognize
-      var eqBeginRE = new RegExp(/\\begin{equation\**}/)
-      var eqEndRE = new RegExp(/\\end{equation\**}/)
-      if (source[code].match(eqBeginRE)) {
+      var eqBeginRE_eq = new RegExp(/\\begin{equation\**}/)
+      var eqEndRE_eq = new RegExp(/\\end{equation\**}/)
+      if (source[code].match(eqBeginRE_eq)) {
         new_source = '\n$$\n'
-        // console.log(source[code].match(eqBeginRE), new_source)
-      } else if (source[code].match(eqEndRE)) {
+        // console.log(source[code].match(eqBeginRE_eq), new_source)
+      } else if (source[code].match(eqEndRE_eq)) {
         new_source = '$$\n\n'
       }
 
-      var eqBeginRE = new RegExp(/\\begin{align.*}/)
-      var eqEndRE = new RegExp(/\\end{align.*}/)
-      if (source[code].match(eqBeginRE)) {
+      var eqBeginRE_align = new RegExp(/\\begin{align.*}/)
+      var eqEndRE_align = new RegExp(/\\end{align.*}/)
+      if (source[code].match(eqBeginRE_align)) {
         new_source = '\n$$\n\n\\begin{aligned}\n'
-        // console.log(source[code].match(eqBeginRE), new_source)
-      } else if (source[code].match(eqEndRE)) {
+        // console.log(source[code].match(eqBeginRE_align), new_source)
+      } else if (source[code].match(eqEndRE_align)) {
         new_source = '\\end{aligned}\n$$\n\n'
       }
       cell_content += new_source;
@@ -170,7 +168,7 @@ class JupViewer extends React.Component {
 
   // Data Cells
   praseOutputs(outputs) {
-    if (outputs.length == 0) {
+    if (outputs.length === 0) {
       return "";
     }
     // Handle "data" type cells
@@ -293,6 +291,7 @@ class JupViewer extends React.Component {
           <Tag color="#87d068">data:image/png</Tag>
           <br></br>
           <img
+            alt="Error"
             src={img_data}
             style={{
               display: img_found ? "" : "none",
@@ -393,7 +392,7 @@ class JupViewer extends React.Component {
                   <Col span={1}></Col>
                   <Col span={22}>
                     <img
-                      alt="No Cover Image Found"
+                      alt="Error"
                       style={{
                         display: !!this.props.coverImg ? "" : "none",
                         width: "100%",
@@ -456,7 +455,7 @@ class JupViewer extends React.Component {
                             float: "left",
                             padding: "5px",
                             color: "#56ACBC",
-                            display: item["cell_type"] == "code" ? "" : "none",
+                            display: item["cell_type"] === "code" ? "" : "none",
                           }}
                         >
                           I [ {item["execution_count"]} ]:
@@ -470,7 +469,7 @@ class JupViewer extends React.Component {
                         textAlign: "left",
                       }}
                     >
-                      {item["cell_type"] == "code" ? (
+                      {item["cell_type"] === "code" ? (
                         <div
                           style={{
                             padding: "5px 0px",
@@ -492,7 +491,7 @@ class JupViewer extends React.Component {
                             }}
                             width="100%"
                             maxLines={
-                              item["source"].length == 0
+                              item["source"].length === 0
                                 ? 1
                                 : item["source"].length + 1
                             }
@@ -536,13 +535,13 @@ class JupViewer extends React.Component {
                     <Col span={1}></Col>
                   </Row>
 
-                  {item["cell_type"] == "markdown" ? (
+                  {item["cell_type"] === "markdown" ? (
                     <div></div>
                   ) : (
                     <Row
                       style={{
                         display:
-                          !!item["outputs"].length == 0 ? "none" : "visible",
+                          !!item["outputs"].length === 0 ? "none" : "visible",
                         backgroundColor: (this.props.dark_theme ? this.props.dark.background_output_theme : this.props.light.background_output_theme)
                       }}
                     >
