@@ -22,11 +22,10 @@
 }
 
 .darkTheme > * {
-  background-color: #2F3129;
+  background-color: #2f3129;
   color: white;
 }
 
 .MDImg img {
   max-width: 100%;
 }
-

@@ -298,6 +298,8 @@ class JupViewer extends React.Component {
               display: img_found ? "" : "none",
               width: "100%",
               backgroundColor: "white",
+              padding: "10px 0px 10px",
+              // margin: "10px 0px",
             }}
           />
         </div>
@@ -579,9 +581,5 @@ class JupViewer extends React.Component {
   }
 }
 
-// JupViewer.defaultProps = {
-//   dark_theme: false,
-//   gutterVisible: false,
-// };
 
 export default JupViewer;
