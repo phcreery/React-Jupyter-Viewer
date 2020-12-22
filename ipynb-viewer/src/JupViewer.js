@@ -37,11 +37,11 @@ class JupViewer extends React.Component {
     light: {
       // Editor Theme
       editor_theme: "lightTheme", // CSS class name that covers overall div and markdown
-      text_editor_theme: "kuroir", // Ace Editor theme
+      text_editor_theme: "iplastic", // Ace Editor theme
       // Text:
       // background_theme: "white", // Not used anywhere?
       title_text_theme: "black", // Title Color
-      background_input_theme: 'rgba(0, 0, 0, 0)', // input text: Ace editor background color
+      background_input_theme: '#E8E9E8', // input text: Ace editor background color
       background_output_theme: 'rgba(0, 0, 0, 0)', // output text: Card and Row background color
 
     },
@@ -297,8 +297,8 @@ class JupViewer extends React.Component {
               display: img_found ? "" : "none",
               width: "100%",
               backgroundColor: "white",
-              padding: "10px 0px 10px",
-              // margin: "10px 0px",
+              // padding: "10px 0px 10px",
+              margin: "10px 0px",
             }}
           />
         </div>
@@ -474,7 +474,7 @@ class JupViewer extends React.Component {
                           style={{
                             padding: "5px 0px",
                             borderStyle: "solid",
-                            borderWidth: "1px",
+                            borderWidth: "0.5px",
                             backgroundColor: (this.props.dark_theme ? this.props.dark.background_input_theme : this.props.light.background_input_theme),
                           }}
                         >
